@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"></script>
+    <script src='index.js'></script>
+    <style>
+        .btn-circle {
+            /* width: 20px; */
+            /* height: 20px; */
+            /* padding: 0px; */
+
+            /* margin:0px; */
+            /* border-radius: 15px; */
+            /* width:40px;  */
+            /* height:40px;  */
+            /* border: none; */
+            margin-top: 0px;
+            /* background-size: 100%;  */
+            /* background-size: 20px auto;  */
+
+            /* text-align: center; */
+            /* font-size: 12px; */
+            /* line-height: 1.42857; */
+            /* background-image: url("ddd.svg") ; */
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row m-1">
+            <div class="col">
+                <div class="card">
+                    <h1 class="mx-auto">Todo List</h1>
+                    <input id="todo" class="w-50 m-1 form-control mx-auto" type="text" placeholder="Add Todo" />
+                    <input id="todoBtn" class="m-1 btn btn-primary mx-auto" type="button" value="Add Todo" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <h1 class="mx-auto">Goals</h1>
+                    <input id="goal" class="w-50 m-1 form-control mx-auto" type="text" placeholder="Add Goal" />
+                    <input id="goalBtn" class="m-1 btn btn-primary mx-auto" type="button" value="Add Goal" onclick="" />
+                </div>
+
+            </div>
+        </div>
+        <div class="row m-1">
+            <div class="col">
+                <div class="card">
+                    <!-- <ul style="list-style-type: none;" id="todos"> -->
+                    <div id="todos" class="container">
+
+                    </div>
+                    <!-- </ul> -->
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+
+                    <ul id="goals">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+
+
+            
+        </div> -->
+
+    </div>
+    <script>
+        /////////////////
+        //////////////////
+        function l(e) {
+            console.log(e)
+            toggleTodo(e.target.id)
+
+
+
+        }
+        document.getElementById('todoBtn').addEventListener('click', addTodo)
+        document.getElementById('goalBtn').addEventListener('click', addGoal)
+        function generateId() {
+            return Math.round(1000 * Math.random())
+        }
+        function addTodo() {
+            const input = document.getElementById('todo')
+            const name = input.value
+            if (name) {
+                input.value = ''
+
+                checkAndDispatch(store,addTodoAction({
+                    name,
+                    complete: false,
+                    id: generateId()
+                }));
+                updateLists()
+            }
+        }
+        function addGoal() {
+            const input = document.getElementById('goal')
+            const name = input.value
+            if (name) {
+                input.value = ''
+
+                checkAndDispatch(store,addGoalAction({
+                    name,
+                    complete: false,
+                    id: generateId()
+                }));
+                updateLists()
+            }
+        }
+
+        function toggleTodo(id) {
+            checkAndDispatch(store,toggleTodoAction(id))
+            updateLists()
+        }
+        function deleteTodo(id) {
+            checkAndDispatch(store,removeTodoAction(id))
+            updateLists()
+        }
+        function deleteGoal(id) {
+            checkAndDispatch(store,removeGoalAction(id))
+            updateLists()
+        }
+        function updateLists() {
+            const goalList = document.getElementById('goals')
+            const todoList = document.getElementById('todos')
+            goalList.innerHTML = ''
+            todoList.innerHTML = ''
+            const { todos, goals } = store.getState();
+            // <li><span class="mx-auto"><input id=e.id type="checkbox"  checked="true"  onchange="l(this)"/></span> <span>asdlkfjasdlkf</span></li>
+            todos.forEach(e => {
+                const li = document.createElement("div");
+                li.classList.add('row');
+                // li.id = e.id
+                const input = document.createElement("input")
+                input.classList.add('col-1')
+                input.type = "checkbox"
+                input.id = e.id
+                input.checked = e.complete
+                // input.onchange=l
+                input.addEventListener('change', () => {
+                    toggleTodo(e.id)
+
+                })
+                const span = document.createElement("span")
+                span.classList.add('col-8')
+                span.innerHTML = " " + e.name
+                span.style.textDecoration = e.complete ? 'line-through' : 'none'
+                const btn = document.createElement("button");
+                btn.classList.add("btn", "btn-danger", "btn-circle")
+                // btn.innerHTML = '<img src="ddd.svg" class="fa fa-times col-12" style="color:white"/>'
+                btn.innerHTML = '<img src="ddd.svg" style="top:-5px;width:20px;padding: 0px;margin:0px;border:none">'
+                btn.addEventListener('click', () => {
+                    deleteTodo(e.id)
+                })
+                li.appendChild(input)
+                li.appendChild(span)
+                li.appendChild(btn)
+                li.style.height = '30px'
+                todoList.appendChild(li);
+
+            });
+            goals.forEach(e => {
+                const li = document.createElement("li");
+                li.innerHTML = e.name
+                li.id = e.id
+
+                const btn = document.createElement("button");
+                btn.classList.add("btn", "btn-danger", "btn-circle")
+                btn.innerHTML = '<i class="fa fa-times" style="color:white;object-fit:scale-down;">x</i>'
+                btn.addEventListener('click', () => {
+                    deleteGoal(e.id)
+                })
+                li.appendChild(btn)
+                goalList.appendChild(li);
+            });
+        }
+        updateLists();
+    </script>
+</body>
+
+</html>
+
+<script>
+    function author (state, action) {
+  switch (action.type) {
+      case  UPDATE_AVATAR:
+        return {
+          ...state,
+          avatar: action.newAvatar
+        }
+      default :
+        state
+  }
+}
+
+function tweet (state, action) {
+  switch (action.type) {
+      case ADD_TWEET :
+        // ...
+      case REMOVE_TWEET :
+        // ...
+      case  UPDATE_AVATAR:
+        return {
+          ...state,
+          author: author(state.author, action)
+        }
+      default :
+        state
+  }
+}
+
+function tweets (state = {}, action) {
+  switch(action.type){
+      case ADD_TWEET :
+        // ...
+      case REMOVE_TWEET :
+        // ...
+      case UPDATE_AVATAR :
+        return {
+          ...state,
+          [action.tweetId]: tweet(state[action.tweetId], action)
+        }
+      default :
+        state
+  }
+}
+
+    function tweets3 (state = {}, action) {
+  switch(action.type){
+      case ADD_TWEET :
+        // ...
+      case REMOVE_TWEET :
+        // ...
+      case UPDATE_AVATAR :
+        // ???
+  }
+}
+function tweets2 (state = {}, action) {
+  switch(action.type){
+      case ADD_TWEET :
+        // ...
+      case REMOVE_TWEET :
+        // ...
+      case UPDATE_AVATAR :
+        return {
+          ...state,
+          [action.tweetId]: {
+            ...state[action.tweetId],
+            author: {
+              ...state[action.tweetId].author,
+              avatar: action.newAvatar 
+            }
+          }
+        }
+  }
+}
+
+
+    exampleReducer=combineReducers({
+  users,
+  settings,
+  tweets
+})
+
+    stateExample =
+    {
+        users: {},
+        setting: {},
+        tweets: {
+            btyxlj: {
+                id: 'btyxlj',
+                text: 'What is a jQuery?',
+                author: {
+                    name: 'Tyler McGinnis',
+                    id: 'tylermcginnis',
+                    avatar: 'twt.com/tm.png'
+                }
+            }
+        }
+    }
+</script>
