@@ -20,8 +20,12 @@
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+  <link rel='stylesheet' type='text/css' media='screen' href='index.css'>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"></script>
+  <script src="https://unpkg.com/react@16.3.0-alpha.1/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16.3.0-alpha.1/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
   <script src='index.js'></script>
 </head>
 
@@ -61,6 +65,10 @@
     </div>
 
   </div>
+  <hr />
+  <div id="app">
+
+  </div>
   <script>
 
     function l(e) {
@@ -75,30 +83,25 @@
     function addTodo() {
       const input = document.getElementById('todo')
       const name = input.value
-      // if (name) {
-        input.value = ''
+      input.value = ''
+      store.dispatch(addTodoAction({
+        name,
+        complete: false,
+        id: generateId()
+      }));
+      updateLists()
 
-        store.dispatch(addTodoAction({
-          name,
-          complete: false,
-          id: generateId()
-        }));
-        updateLists()
-      // }
     }
     function addGoal() {
       const input = document.getElementById('goal')
       const name = input.value
-      // if (name) {
-        input.value = ''
-
-        store.dispatch(addGoalAction({
-          name,
-          complete: false,
-          id: generateId()
-        }));
-        updateLists()
-      // }
+      input.value = ''
+      store.dispatch(addGoalAction({
+        name,
+        complete: false,
+        id: generateId()
+      }));
+      updateLists()
     }
 
     function toggleTodo(id) {
@@ -129,10 +132,8 @@
         input.type = "checkbox"
         input.id = e.id
         input.checked = e.complete
-        // input.onchange=l
         input.addEventListener('change', () => {
           toggleTodo(e.id)
-
         })
         const span = document.createElement("span")
         span.classList.add('col-8')
@@ -140,8 +141,7 @@
         span.style.textDecoration = e.complete ? 'line-through' : 'none'
         const btn = document.createElement("button");
         btn.classList.add("btn", "btn-danger", "btn-circle")
-        // btn.innerHTML = '<img src="ddd.svg" class="fa fa-times col-12" style="color:white"/>'
-        btn.innerHTML = '<img src="ddd.svg" style="top:-5px;width:20px;padding: 0px;margin:0px;border:none">'
+        btn.innerHTML = '<img src="x.svg" style="top:-5px;width:20px;padding: 0px;margin:0px;border:none">'
         btn.addEventListener('click', () => {
           deleteTodo(e.id)
         })
@@ -150,7 +150,6 @@
         li.appendChild(btn)
         li.style.height = '30px'
         todoList.appendChild(li);
-
       });
       goals.forEach(e => {
         const li = document.createElement("li");
@@ -167,138 +166,79 @@
         goalList.appendChild(li);
       });
     }
-    $(document).ready(()=>{
-      (function($) {
-    $.fn.alertify = function(options) {
-      // This is the easiest way to have default options.
-      var $target = this;
-      var settings = $.extend({
-        // These are the defaults.
-        type: 'danger',
-        class: 'alertify',
-        content: 'There was an error',
-        speed: 500,
-        delay: 1500,
-        complete: function() { // callback function to be called after a the display time
-          $target.prev().slideUp(settings.speed, function() {
-            $target.prev().remove();
+    $(document).ready(() => {
+      (function ($) {
+        $.fn.alertify = function (options) {
+          var $target = this;
+          var settings = $.extend({
+            type: 'danger',
+            class: 'alertify',
+            content: 'There was an error',
+            speed: 500,
+            delay: 1500,
+            complete: function () {
+              $target.prev().slideUp(settings.speed, function () {
+                $target.prev().remove();
+              });
+            }
+          }, options);
+          var $alert = $('<div class="alert alert-' + settings.type + ' ' + settings.class + '">' + settings.content + '</div>');
+          $alert.hide().insertBefore(this).slideDown(settings.speed, function () {
+            setTimeout(function () {
+              settings.complete();
+            }, settings.delay);
+
           });
-        }
-      }, options);
-      var $alert = $('<div class="alert alert-' + settings.type + ' ' + settings.class + '">' + settings.content + '</div>');
-      $alert.hide().insertBefore(this).slideDown(settings.speed, function() {
-  
-        setTimeout(function() {
-          settings.complete();
-        }, settings.delay);
-  
-      });
-    };
-  }(jQuery));
-updateLists();
+        };
+      }(jQuery));
+      updateLists();
     })
-    
+
+  </script>
+  <script type="text/babel">
+    function List(props){
+      return (
+        <ul>
+          <li>List</li>
+        </ul>
+      )
+    }
+    class Todos extends React.Component{
+      render(){
+        return (
+            <div>
+                TODOS
+                <List />
+            </div>
+        )
+    }
+  }
+    class Goals extends React.Component{
+      render(){
+        return (
+            <div>
+               GOALS
+                <List />
+            </div>
+        )
+    }
+  } 
+    class App extends React.Component{
+    render(){
+        return (
+            <div>
+                App
+                <Todos/>
+                <Goals/>
+            </div>
+        )
+    }
+}
+
+    ReactDOM.render(
+      <App />,
+      document.getElementById("app"))
   </script>
 </body>
 
 </html>
-
-<script>
-  // function author(state, action) {
-  //   switch (action.type) {
-  //     case UPDATE_AVATAR:
-  //       return {
-  //         ...state,
-  //         avatar: action.newAvatar
-  //       }
-  //     default:
-  //       state
-  //   }
-  // }
-
-  // function tweet(state, action) {
-  //   switch (action.type) {
-  //     case ADD_TWEET:
-  //     // ...
-  //     case REMOVE_TWEET:
-  //     // ...
-  //     case UPDATE_AVATAR:
-  //       return {
-  //         ...state,
-  //         author: author(state.author, action)
-  //       }
-  //     default:
-  //       state
-  //   }
-  // }
-
-  // function tweets(state = {}, action) {
-  //   switch (action.type) {
-  //     case ADD_TWEET:
-  //     // ...
-  //     case REMOVE_TWEET:
-  //     // ...
-  //     case UPDATE_AVATAR:
-  //       return {
-  //         ...state,
-  //         [action.tweetId]: tweet(state[action.tweetId], action)
-  //       }
-  //     default:
-  //       state
-  //   }
-  // }
-
-  // function tweets3(state = {}, action) {
-  //   switch (action.type) {
-  //     case ADD_TWEET:
-  //     // ...
-  //     case REMOVE_TWEET:
-  //     // ...
-  //     case UPDATE_AVATAR:
-  //     // ???
-  //   }
-  // }
-  // function tweets2(state = {}, action) {
-  //   switch (action.type) {
-  //     case ADD_TWEET:
-  //     // ...
-  //     case REMOVE_TWEET:
-  //     // ...
-  //     case UPDATE_AVATAR:
-  //       return {
-  //         ...state,
-  //         [action.tweetId]: {
-  //           ...state[action.tweetId],
-  //           author: {
-  //             ...state[action.tweetId].author,
-  //             avatar: action.newAvatar
-  //           }
-  //         }
-  //       }
-  //   }
-  // }
-
-
-  // exampleReducer = combineReducers({
-  //   users,
-  //   settings,
-  //   tweets
-  // })
-
-  // stateExample =
-  // {
-  //   users: {},
-  //   setting: {},
-  //   tweets: {
-  //     btyxlj: {
-  //       id: 'btyxlj',
-  //       text: 'What is a jQuery?',
-  //       author: {
-  //         name: 'Tyler McGinnis',
-  //         id: 'tylermcginnis',
-  //         avatar: 'twt.com/tm.png'
-  //       }
-  //     }
-  //   }
-  // }
-</script> 
