@@ -109,7 +109,7 @@
     function addTodo() {
       const input = document.getElementById('todo')
       const name = input.value
-      if (name) {
+      // if (name) {
         input.value = ''
 
         store.dispatch(addTodoAction({
@@ -118,12 +118,12 @@
           id: generateId()
         }));
         updateLists()
-      }
+      // }
     }
     function addGoal() {
       const input = document.getElementById('goal')
       const name = input.value
-      if (name) {
+      // if (name) {
         input.value = ''
 
         store.dispatch(addGoalAction({
@@ -132,7 +132,7 @@
           id: generateId()
         }));
         updateLists()
-      }
+      // }
     }
 
     function toggleTodo(id) {
