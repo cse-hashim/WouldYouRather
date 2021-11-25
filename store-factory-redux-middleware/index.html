@@ -112,7 +112,7 @@
             if (name) {
                 input.value = ''
 
-                checkAndDispatch(store,addTodoAction({
+                store.dispatch(addTodoAction({
                     name,
                     complete: false,
                     id: generateId()
@@ -126,7 +126,7 @@
             if (name) {
                 input.value = ''
 
-                checkAndDispatch(store,addGoalAction({
+                store.dispatch(addGoalAction({
                     name,
                     complete: false,
                     id: generateId()
@@ -136,15 +136,15 @@
         }
 
         function toggleTodo(id) {
-            checkAndDispatch(store,toggleTodoAction(id))
+            store.dispatch(toggleTodoAction(id))
             updateLists()
         }
         function deleteTodo(id) {
-            checkAndDispatch(store,removeTodoAction(id))
+            store.dispatch(removeTodoAction(id))
             updateLists()
         }
         function deleteGoal(id) {
-            checkAndDispatch(store,removeGoalAction(id))
+            store.dispatch(removeGoalAction(id))
             updateLists()
         }
         function updateLists() {

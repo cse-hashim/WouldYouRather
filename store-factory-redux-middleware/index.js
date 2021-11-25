@@ -76,30 +76,28 @@ const goals = (state = [], action) => {
 //     }
 // }
 // const store = createStore(app)
-function checkAndDispatch(store, action) {
-    if (action.type === ADD_TODO &&
-        action.todo.name.toLowerCase().includes('bitcoin')
-    ) {
-        return alert('Nope. thats a bad idea')
-    }
-    if (action.type === ADD_GOAL &&
-        action.goal.name.toLowerCase().includes('bitcoin')
-    ) {
-        return alert('Nope. thats a bad idea')
-    }
-    return store.dispatch(action)
-}
+
 function checker(store){
     return function(next){
         return function(action){
-            
+            if (action.type === ADD_TODO &&
+                action.todo.name.toLowerCase().includes('bitcoin')
+            ) {
+                return alert('Nope. thats a bad idea')
+            }
+            if (action.type === ADD_GOAL &&
+                action.goal.name.toLowerCase().includes('bitcoin')
+            ) {
+                return alert('Nope. thats a bad idea')
+            }
+            return next(action)            
         }
     }
 }
 const store = Redux.createStore(Redux.combineReducers({
     todos,
     goals,
-}))
+}),Redux.applyMiddleware(checker))
 store.subscribe(() => {
     console.log('the new state', store.getState())
 })
@@ -137,46 +135,46 @@ const toggleTodoAction = (id) => {
 
 // tests
 
-checkAndDispatch(store,addTodoAction({
+store.dispatch(addTodoAction({
     id: 52,
     name: 'Learn redux',
     complete: false
 }))
-checkAndDispatch(store,addTodoAction({
+store.dispatch(addTodoAction({
     id: 0,
     name: 'Walk the dog',
     complete: false,
 
 }))
 
-checkAndDispatch(store,addTodoAction({
+store.dispatch(addTodoAction({
     id: 1,
     name: 'Wash the car',
     complete: false,
 
 }))
 
-checkAndDispatch(store,addTodoAction({
+store.dispatch(addTodoAction({
     id: 2,
     name: 'Go to the gym',
     complete: true,
 
 }))
 
-checkAndDispatch(store,removeTodoAction(1))
-checkAndDispatch(store,toggleTodoAction(0))
+store.dispatch(removeTodoAction(1))
+store.dispatch(toggleTodoAction(0))
 
 
-checkAndDispatch(store,addGoalAction({
+store.dispatch(addGoalAction({
     id: 0,
     name: 'Learn Redux'
 
 }))
 
-checkAndDispatch(store,addGoalAction({
+store.dispatch(addGoalAction({
     id: 1,
     name: 'Lose 20 pounds'
 
 }))
 
-checkAndDispatch(store,removeGoalAction(0))
+store.dispatch(removeGoalAction(0))
