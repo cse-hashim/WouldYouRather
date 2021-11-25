@@ -1,0 +1,33 @@
+.btn-circle {
+    /* width: 20px; */
+    /* height: 20px; */
+    /* padding: 0px; */
+
+    /* margin:0px; */
+    /* border-radius: 15px; */
+    /* width:40px;  */
+    /* height:40px;  */
+    /* border: none; */
+    margin-top: 0px;
+    /* background-size: 100%;  */
+    /* background-size: 20px auto;  */
+
+    /* text-align: center; */
+    /* font-size: 12px; */
+    /* line-height: 1.42857; */
+    /* background-image: url("ddd.svg") ; */
+
+  }
+  /* Latest compiled and minified CSS included as External Resource*/
+
+
+/* Optional theme 
+@import url('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css');
+body {
+    margin: 10px;
+}*/
+
+.test {
+    margin-top: 35px;
+  }
+  
