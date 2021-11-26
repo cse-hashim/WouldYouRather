@@ -1,17 +1,17 @@
 import React from 'react'
 import { render } from 'react-dom'
-
-function Parent({name}) {
+const context = React.createContext()
+function Parent({ name }) {
     return (
         <div>
             <h1>
                 Parent
             </h1>
-            <Child name={name}/>
+            <Child name={name} />
         </div>
     )
 }
-function Child({name}) {
+function Child({ name }) {
     return (
         <div>
             <h1>
@@ -21,14 +21,19 @@ function Child({name}) {
         </div>
     )
 }
-function GrandChild({ name }) {
+function GrandChild() {
     return (
-        <div>
-            <h1>
-                GrandChild
-            </h1>
-            <h3>Name: {name}</h3>
-        </div>
+        <context.Consumer>
+            {(name) => (
+                <div>
+                    <h1>
+                        GrandChild
+                    </h1>
+                    <h3>Name: {name}</h3>
+                </div>
+            )}
+
+        </context.Consumer>
     )
 }
 class App extends React.Component {
@@ -39,7 +44,9 @@ class App extends React.Component {
         // passing name to the 
         // parent and child
         return (
-            <Parent name={name}/>
+            <context.Provider value={name}>
+                <Parent />
+            </context.Provider>
         )
     }
 }
