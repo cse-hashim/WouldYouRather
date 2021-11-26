@@ -272,7 +272,13 @@
         updateLists()
       }
       removeItem = (e) => {
-        this.props.store.dispatch(removeGoalAction(e.id))
+                this.props.store.dispatch(removeGoalAction(e.id))
+        return API.deleteTodo(e.id)
+        .catch(()=>{
+          this.props.store.dispatch(addGoalAction(e))
+          alert("error occured ... try again")
+          console.log("error occured ... try again")
+        })
         updateLists()
       }
       render() {
