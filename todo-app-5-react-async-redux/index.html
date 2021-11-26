@@ -231,7 +231,10 @@
         updateLists()
       }
       removeItem = (e) => {
-        this.props.store.dispatch(removeTodoAction(e.id))
+        return API.deleteTodo(e.id)
+        .then(()=>{
+          this.props.store.dispatch(removeTodoAction(e.id))
+        })
         updateLists()
       }
       toggleTodo = (e) => {
