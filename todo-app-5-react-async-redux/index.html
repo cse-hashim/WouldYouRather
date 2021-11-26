@@ -231,9 +231,12 @@
         updateLists()
       }
       removeItem = (e) => {
+        this.props.store.dispatch(removeTodoAction(e.id))
         return API.deleteTodo(e.id)
-        .then(()=>{
-          this.props.store.dispatch(removeTodoAction(e.id))
+        .catch(()=>{
+          this.props.store.dispatch(addTodoAction(e))
+          alert("error occured ... try again")
+          console.log("error occured ... try again")
         })
         updateLists()
       }
