@@ -20,18 +20,18 @@
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  <link rel='stylesheet' type='text/css' media='screen' href='index.css'>
+  <!-- <link rel='stylesheet' type='text/css' media='screen' href='index.css'> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"></script>
   <script src="https://unpkg.com/react@16.3.0-alpha.1/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@16.3.0-alpha.1/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
   <script src="https://tylermcginnis.com/goals-todos-api/index.js"></script>
 
-  <script src='index.js'></script>
+  <!-- <script src='index.js'></script> -->
 </head>
 
 <body>
-  <div class="container">
+  <!-- <div class="container">
     <div class="test"></div>
     <div class="row m-1">
       <div class="col">
@@ -66,7 +66,7 @@
     </div>
 
   </div>
-  <hr />
+  <hr /> -->
   <div id="app">
 
   </div>
@@ -158,9 +158,9 @@
       goals,
       loading,
     }), Redux.applyMiddleware(checker, logger))
-    store.subscribe(() => {
-      console.log('the new state', store.getState())
-    })
+    // store.subscribe(() => {
+    //   console.log('the new state', store.getState())
+    // })
     // action creators
     const addTodoAction = (todo) => {
       return {
@@ -255,102 +255,102 @@
 
     store.dispatch(removeGoalAction(0))
 
-    function l(e) {
-      console.log(e)
-      toggleTodo(e.target.id)
-    }
-    document.getElementById('todoBtn').addEventListener('click', addTodo)
-    document.getElementById('goalBtn').addEventListener('click', addGoal)
+    // function l(e) {
+    //   console.log(e)
+    //   toggleTodo(e.target.id)
+    // }
+    // document.getElementById('todoBtn').addEventListener('click', addTodo)
+    // document.getElementById('goalBtn').addEventListener('click', addGoal)
     function generateId() {
-      return Math.round(1000 * Math.random())
+      return Math.random().toString(36).substring(2);
     }
-    function addTodo() {
-      const input = document.getElementById('todo')
-      const name = input.value
-      input.value = ''
-      store.dispatch(addTodoAction({
-        name,
-        complete: false,
-        id: generateId()
-      }));
-      updateLists()
+    // function addTodo() {
+    //   const input = document.getElementById('todo')
+    //   const name = input.value
+    //   input.value = ''
+    //   store.dispatch(addTodoAction({
+    //     name,
+    //     complete: false,
+    //     id: generateId()
+    //   }));
+    //   updateLists()
 
-    }
-    function addGoal() {
-      const input = document.getElementById('goal')
-      const name = input.value
-      input.value = ''
-      store.dispatch(addGoalAction({
-        name,
-        complete: false,
-        id: generateId()
-      }));
-      updateLists()
-    }
+    // }
+    // function addGoal() {
+    //   const input = document.getElementById('goal')
+    //   const name = input.value
+    //   input.value = ''
+    //   store.dispatch(addGoalAction({
+    //     name,
+    //     complete: false,
+    //     id: generateId()
+    //   }));
+    //   updateLists()
+    // }
 
-    function toggleTodo(id) {
-      store.dispatch(toggleTodoAction(id))
-      updateLists()
-    }
-    function deleteTodo(id) {
-      store.dispatch(removeTodoAction(id))
-      updateLists()
-    }
-    function deleteGoal(id) {
-      store.dispatch(removeGoalAction(id))
-      updateLists()
-    }
-    function updateLists() {
-      const goalList = document.getElementById('goals')
-      const todoList = document.getElementById('todos')
-      goalList.innerHTML = ''
-      todoList.innerHTML = ''
-      const { todos, goals } = store.getState();
-      // <li><span class="mx-auto"><input id=e.id type="checkbox"  checked="true"  onchange="l(this)"/></span> <span>asdlkfjasdlkf</span></li>
-      todos.forEach(e => {
-        const li = document.createElement("div");
-        li.classList.add('row');
-        // li.id = e.id
-        const input = document.createElement("input")
-        input.classList.add('col-1')
-        input.type = "checkbox"
-        input.id = e.id
-        input.checked = e.complete
-        input.addEventListener('change', () => {
-          toggleTodo(e.id)
-        })
-        const span = document.createElement("span")
-        span.classList.add('col-8')
-        span.innerHTML = " " + e.name
-        span.style.textDecoration = e.complete ? 'line-through' : 'none'
-        const btn = document.createElement("button");
-        // btn.classList.add("btn", "btn-danger", "btn-circle")
-        // btn.innerHTML = '<img src="x.svg" style="top:-5px;width:20px;padding: 0px;margin:0px;border:none">'
-        btn.innerHTML = '<img src="x.svg" style="width:20px;padding: 0px;margin:0px;border:none">'
-        btn.addEventListener('click', () => {
-          deleteTodo(e.id)
-        })
-        li.appendChild(input)
-        li.appendChild(span)
-        li.appendChild(btn)
-        // li.style.height = '30px'
-        todoList.appendChild(li);
-      });
-      goals.forEach(e => {
-        const li = document.createElement("li");
-        li.innerHTML = e.name
-        li.id = e.id
+    // function toggleTodo(id) {
+    //   store.dispatch(toggleTodoAction(id))
+    //   updateLists()
+    // }
+    // function deleteTodo(id) {
+    //   store.dispatch(removeTodoAction(id))
+    //   updateLists()
+    // }
+    // function deleteGoal(id) {
+    //   store.dispatch(removeGoalAction(id))
+    //   updateLists()
+    // }
+    // function updateLists() {
+    //   const goalList = document.getElementById('goals')
+    //   const todoList = document.getElementById('todos')
+    //   goalList.innerHTML = ''
+    //   todoList.innerHTML = ''
+    //   const { todos, goals } = store.getState();
+    //   // <li><span class="mx-auto"><input id=e.id type="checkbox"  checked="true"  onchange="l(this)"/></span> <span>asdlkfjasdlkf</span></li>
+    //   todos.forEach(e => {
+    //     const li = document.createElement("div");
+    //     li.classList.add('row');
+    //     // li.id = e.id
+    //     const input = document.createElement("input")
+    //     input.classList.add('col-1')
+    //     input.type = "checkbox"
+    //     input.id = e.id
+    //     input.checked = e.complete
+    //     input.addEventListener('change', () => {
+    //       toggleTodo(e.id)
+    //     })
+    //     const span = document.createElement("span")
+    //     span.classList.add('col-8')
+    //     span.innerHTML = " " + e.name
+    //     span.style.textDecoration = e.complete ? 'line-through' : 'none'
+    //     const btn = document.createElement("button");
+    //     // btn.classList.add("btn", "btn-danger", "btn-circle")
+    //     // btn.innerHTML = '<img src="x.svg" style="top:-5px;width:20px;padding: 0px;margin:0px;border:none">'
+    //     btn.innerHTML = '<img src="x.svg" style="width:20px;padding: 0px;margin:0px;border:none">'
+    //     btn.addEventListener('click', () => {
+    //       deleteTodo(e.id)
+    //     })
+    //     li.appendChild(input)
+    //     li.appendChild(span)
+    //     li.appendChild(btn)
+    //     // li.style.height = '30px'
+    //     todoList.appendChild(li);
+    //   });
+    //   goals.forEach(e => {
+    //     const li = document.createElement("li");
+    //     li.innerHTML = e.name
+    //     li.id = e.id
 
-        const btn = document.createElement("button");
-        btn.classList.add("btn", "btn-danger", "btn-circle")
-        btn.innerHTML = '<i class="fa fa-times" style="color:white;object-fit:scale-down;">x</i>'
-        btn.addEventListener('click', () => {
-          deleteGoal(e.id)
-        })
-        li.appendChild(btn)
-        goalList.appendChild(li);
-      });
-    }
+    //     const btn = document.createElement("button");
+    //     btn.classList.add("btn", "btn-danger", "btn-circle")
+    //     btn.innerHTML = '<i class="fa fa-times" style="color:white;object-fit:scale-down;">x</i>'
+    //     btn.addEventListener('click', () => {
+    //       deleteGoal(e.id)
+    //     })
+    //     li.appendChild(btn)
+    //     goalList.appendChild(li);
+    //   });
+    // }
     $(document).ready(() => {
       (function ($) {
         $.fn.alertify = function (options) {
@@ -376,7 +376,7 @@
           });
         };
       }(jQuery));
-      updateLists();
+      // updateLists();
     })
 
   </script>
@@ -411,7 +411,7 @@
           complete: false,
           id: generateId()
         }))
-        updateLists()
+        // updateLists()
       }
       removeItem = (e) => {
         this.props.store.dispatch(removeTodoAction(e.id))
@@ -421,11 +421,11 @@
             alert("error occured ... try again")
             console.log("error occured ... try again")
           })
-        updateLists()
+        // updateLists()
       }
       toggleTodo = (e) => {
         this.props.store.dispatch(toggleTodoAction(e.id))
-        updateLists()
+        // updateLists()
       }
       render() {
         return (
@@ -452,7 +452,7 @@
           name,
           id: generateId()
         }))
-        updateLists()
+        // updateLists()
       }
       removeItem = (e) => {
         this.props.store.dispatch(removeGoalAction(e.id))
@@ -462,7 +462,7 @@
             alert("error occured ... try again")
             console.log("error occured ... try again")
           })
-        updateLists()
+        // updateLists()
       }
       render() {
         return (
