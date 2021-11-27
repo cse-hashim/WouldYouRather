@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Udacity Todos Goals</title>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js'></script>
@@ -9,15 +8,13 @@
   <script src='https://unpkg.com/babel-standalone@6.15.0/babel.min.js'></script>
   <script src='https://tylermcginnis.com/goals-todos-api/index.js'></script>
   <script src='https://unpkg.com/redux-thunk@2.2.0/dist/redux-thunk.min.js'></script>
-  <script src="https://unpkg.com/react-redux@5.0.6/dist/react-redux.min.js"></script>
-
+  <script src='https://unpkg.com/react-redux@5.0.6/dist/react-redux.min.js'></script>
 </head>
-
 <body>
   <div id='app'></div>
 
   <script type='text/javascript'>
-    function generateId() {
+    function generateId () {
       return Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
     }
 
@@ -29,42 +26,42 @@
     const REMOVE_GOAL = 'REMOVE_GOAL'
     const RECEIVE_DATA = 'RECEIVE_DATA'
 
-    function addTodoAction(todo) {
+    function addTodoAction (todo) {
       return {
         type: ADD_TODO,
         todo,
       }
     }
 
-    function removeTodoAction(id) {
+    function removeTodoAction (id) {
       return {
         type: REMOVE_TODO,
         id,
       }
     }
 
-    function toggleTodoAction(id) {
+    function toggleTodoAction (id) {
       return {
         type: TOGGLE_TODO,
         id,
       }
     }
 
-    function addGoalAction(goal) {
+    function addGoalAction (goal) {
       return {
         type: ADD_GOAL,
         goal,
       }
     }
 
-    function removeGoalAction(id) {
+    function removeGoalAction (id) {
       return {
         type: REMOVE_GOAL,
         id,
       }
     }
 
-    function receiveDataAction(todos, goals) {
+    function receiveDataAction (todos, goals) {
       return {
         type: RECEIVE_DATA,
         todos,
@@ -72,7 +69,7 @@
       }
     }
 
-    function handleAddTodo(name, cb) {
+    function handleAddTodo (name, cb) {
       return (dispatch) => {
         return API.saveTodo(name)
           .then((todo) => {
@@ -85,7 +82,7 @@
       }
     }
 
-    function handleDeleteTodo(todo) {
+    function handleDeleteTodo (todo) {
       return (dispatch) => {
         dispatch(removeTodoAction(todo.id))
 
@@ -97,7 +94,7 @@
       }
     }
 
-    function handleToggle(id) {
+    function handleToggle (id) {
       return (dispatch) => {
         dispatch(toggleTodoAction(id))
 
@@ -109,7 +106,7 @@
       }
     }
 
-    function handleAddGoal(name, cb) {
+    function handleAddGoal (name, cb) {
       return (dispatch) => {
         return API.saveGoal(name)
           .then((goal) => {
@@ -120,7 +117,7 @@
       }
     }
 
-    function handleDeleteGoal(goal) {
+    function handleDeleteGoal (goal) {
       return (dispatch) => {
         dispatch(removeGoalAction(goal.id))
 
@@ -132,51 +129,51 @@
       }
     }
 
-    function handleInitialData() {
+    function handleInitialData () {
       return (dispatch) => {
         return Promise.all([
           API.fetchTodos(),
           API.fetchGoals()
-        ]).then(([todos, goals]) => {
+        ]).then(([ todos, goals ]) => {
           dispatch(receiveDataAction(todos, goals))
         })
       }
     }
 
-    function todos(state = [], action) {
-      switch (action.type) {
-        case ADD_TODO:
+    function todos (state = [], action) {
+      switch(action.type) {
+        case ADD_TODO :
           return state.concat([action.todo])
-        case REMOVE_TODO:
+        case REMOVE_TODO :
           return state.filter((todo) => todo.id !== action.id)
-        case TOGGLE_TODO:
+        case TOGGLE_TODO :
           return state.map((todo) => todo.id !== action.id ? todo :
             Object.assign({}, todo, { complete: !todo.complete }))
-        case RECEIVE_DATA:
+        case RECEIVE_DATA :
           return action.todos
-        default:
+        default :
           return state
       }
     }
 
-    function goals(state = [], action) {
-      switch (action.type) {
-        case ADD_GOAL:
+    function goals (state = [], action) {
+      switch(action.type) {
+        case ADD_GOAL :
           return state.concat([action.goal])
-        case REMOVE_GOAL:
+        case REMOVE_GOAL :
           return state.filter((goal) => goal.id !== action.id)
-        case RECEIVE_DATA:
+        case RECEIVE_DATA :
           return action.goals
-        default:
+        default :
           return state
       }
     }
 
-    function loading(state = true, action) {
-      switch (action.type) {
-        case RECEIVE_DATA:
+    function loading (state = true, action) {
+      switch(action.type) {
+        case RECEIVE_DATA :
           return false
-        default:
+        default :
           return state
       }
     }
@@ -201,9 +198,9 @@
 
     const logger = (store) => (next) => (action) => {
       console.group(action.type)
-      console.log('The action: ', action)
-      const result = next(action)
-      console.log('The new state: ', store.getState())
+        console.log('The action: ', action)
+        const result = next(action)
+        console.log('The new state: ', store.getState())
       console.groupEnd()
       return result
     }
@@ -216,15 +213,15 @@
   </script>
 
   <script type='text/babel'>
-    function List(props) {
+    function List (props) {
       return (
         <ul>
           {props.items.map((item) => (
             <li key={item.id}>
               <span
                 onClick={() => props.toggle && props.toggle(item.id)}
-                style={{ textDecoration: item.complete ? 'line-through' : 'none' }}>
-                {item.name}
+                style={{textDecoration: item.complete ? 'line-through' : 'none'}}>
+                  {item.name}
               </span>
               <button onClick={() => props.remove(item)}>
                 X
@@ -271,55 +268,7 @@
       }
     }
 
-    function connect(mapStateToProps) {
-      return (Component) => {
-        class Receiver extends React.Component {
-          componentDidMount() {
-            const { subscribe } = this.props.store
-            this.unsubscribe = subscribe(() => {
-              this.forceUpdate()
-            })
-          }
-          componentWillUnmount() {
-            this.unsubscribe()
-          }
-          render() {
-            const { dispatch, getState } = this.store
-            const state = getState()
-            const stateNeeded = mapStateToProps(state)
-            return (
-              <Component {...stateNeeded} dispatch={dispatch} />
-            )
-          }
-        }
-        class ConnectedComponent extends React.Component {
-          render() {
-            return (
-              <Context.Consumer>
-                {(store) => (
-                  <Receiver store={store} />
-                )}
-              </Context.Consumer>
-            )
-          }
-        }
-        return ConnectedComponent
-      }
-    }
-    // class ConnectedTodos extends React.Component {
-    //   render() {
-    //     return (
-    //       <Context.Consumer>
-    //         {(store) => {
-    //           const { todos } = store.getState()
-
-    //           return <Todos todos={todos} dispatch={store.dispatch} />
-    //         }}
-    //       </Context.Consumer>
-    //     )
-    //   }
-    // }
-    const ConnectedTodos = connect((state) => ({
+    const ConnectedTodos = ReactRedux.connect((state) => ({
       todos: state.todos
     }))(Todos)
 
@@ -354,35 +303,17 @@
       }
     }
 
-    // class ConnectedGoals extends React.Component {
-    //   render() {
-    //     return (
-    //       <Context.Consumer>
-    //         {(store) => {
-    //           const { goals } = store.getState()
-
-    //           return <Goals goals={goals} dispatch={store.dispatch} />
-    //         }}
-    //       </Context.Consumer>
-    //     )
-    //   }
-    // }
-    const ConnectedGoals = connect((state) => ({
+    const ConnectedGoals = ReactRedux.connect((state) => ({
       goals: state.goals
     }))(Goals)
 
     class App extends React.Component {
-      componentDidMount() {
+      componentDidMount () {
         const { dispatch } = this.props
 
         dispatch(handleInitialData())
-
-        // store.subscribe(() => this.forceUpdate())
       }
       render() {
-        // const { store } = this.props
-        // const { loading } = store.getState()
-
         if (this.props.loading === true) {
           return <h3>Loading</h3>
         }
@@ -396,39 +327,16 @@
       }
     }
 
-    // class ConnectedApp extends React.Component {
-    //   render() {
-    //     return (
-    //       <Context.Consumer>
-    //         {(store) => (
-    //           <App store={store} />
-    //         )}
-    //       </Context.Consumer>
-    //     )
-    //   }
-    // }
-    const ConnectedApp = connect((state) => ({
+    const ConnectedApp = ReactRedux.connect((state) => ({
       loading: state.loading
     }))(App)
-    const Context = React.createContext()
-
-    class Provider extends React.Component {
-      render() {
-        return (
-          <Context.Provider value={this.props.store}>
-            {this.props.children}
-          </Context.Provider>
-        )
-      }
-    }
 
     ReactDOM.render(
-      <Provider store={store}>
+      <ReactRedux.Provider store={store}>
         <ConnectedApp />
-      </Provider>,
+      </ReactRedux.Provider>,
       document.getElementById('app')
     )
   </script>
 </body>
-
 </html>
