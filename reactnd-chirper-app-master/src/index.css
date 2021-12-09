@@ -156,7 +156,7 @@ li {
   right: 0;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2) ;
   z-index: 10;
   width: 100px;
   transition: width 2s;
@@ -174,19 +174,68 @@ li {
   z-index: 99 !important;
 }
 .mya{
-  background-color:transparent;
-  border: 1px white solid;
+  /* background-color:#5e5c5c65; */
+  background: linear-gradient(to right, #5e5c5caf 1%, transparent 100%);
+  /* border: 1px red solid; */
   border-radius: 1em;
   padding:1px;
-  backdrop-filter:saturate(180%) blur(20px);
   float: left;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.534);
+  /* box-shadow:rgb(0 0 0 / 20%) 0px 2px 4px; */
+  backdrop-filter: blur(100px) !important;
   
+  
+}
+.myfield{
+  border: none;
+  border-radius: 1em;
+  background-color: #dad7d7;
+  
+  /* margin-right: auto; */
+}
+.p-10p{
+  margin-left: 10%;
+
+}
+.blureme{
+  /* border: 1px red solid; */
+  /* border-radius: 1em; */
+
+  /* backdrop-filter:saturate(40%) blur(20px); */
+  /* border: 1px rgb(177, 177, 177) solid; */
+  /* border-radius: 25px;   */
+}
+.p-10p:hover{
+  background-color:#252525;
+  /* backdrop-filter:saturate(180%) blur(20px); */
+
+  cursor: pointer;
+}
+.red{
+  background-color: red;
+  color:white
+}
+.green{
+  background-color: green;
+  color:white;
 }
 .trans{
   /* transform:translateY(-25vh); */
-  top: -25%;
+  top: -48%;
   
 
+}
+.trans *{
+  margin-left: 7px !important;
+  margin-top: 1px !important;
+
+}
+.shrink-left{
+  width:75%;
+  margin: 1px;
+  left: 0%;
+  top: 0%;
+  margin-top: 0%;
 }
 .dropdown-content a {
   color: black;
@@ -202,6 +251,7 @@ li {
 .dropdown:hover .dropdown-content {
   display: block;
   width: 100px;
+  height: fit-content;
 }
 
 .dropdown:hover .dropbtn {

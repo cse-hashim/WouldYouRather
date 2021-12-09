@@ -13,7 +13,7 @@ export function handleInitialData () {
     .then(({ users,tweets }) => {
       dispatch(receiveUsers(users))
       dispatch(receiveTweets(tweets))
-      dispatch(setAuthedUser(AUTHED_ID))
+      // dispatch(setAuthedUser(AUTHED_ID))
       dispatch(hideLoading())
     })
       // .then(({ users, tweets }) => {

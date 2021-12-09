@@ -7,8 +7,17 @@ import { handleToggleTweet } from '../actions/tweets'
 import { Link, withRouter } from 'react-router-dom'
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
+import { showLoading } from 'react-redux-loading'
+import { setAuthedUser } from '../actions/authedUser'
 
 class Nav extends Component {
+  handleLogout = (e) => {
+    e.preventDefault()
+    const { dispatch } = this.props
+    dispatch(showLoading)
+    dispatch(setAuthedUser(null))
+
+}
   render() {
     const { users, authedUser } = this.props
     let user = null
@@ -34,13 +43,19 @@ class Nav extends Component {
           </li>
           {user && (
             <li>
-              <NavLink to='#' activeClassName='active'>
-                <div className='dropdown div'>
+              {/* <NavLink to='#' activeClassName='active'> */}
+                <div className='dropdown'>
                   <div className='dropdown-content mya trans'>
-                    <span className=' mya' >
-                      <div>{user.name}</div>
-                      <div className='handle'>@{authedUser}</div>
-                    </span>
+                      <div className='myfield shrink-left'>{user.name}</div>
+                      <div className='handle myfield shrink-left'>@{authedUser}</div>
+                      
+                      <input
+                            type='button'
+                            value='Logout'
+                            className='myfield p-10p red'
+                            onClick={e => this.handleLogout(e)}
+                        />
+                    
                   </div>
                   <div className='upperimg'>
                     <img
@@ -50,7 +65,7 @@ class Nav extends Component {
                     />
                   </div>
                 </div>
-              </NavLink>
+              {/* </NavLink> */}
             </li>
           )}
         </ul>

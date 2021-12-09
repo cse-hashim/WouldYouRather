@@ -42,4 +42,4 @@ function mapStateToProps({ authedUser }) {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(App))
+export default connect(mapStateToProps)(Loggedin)
