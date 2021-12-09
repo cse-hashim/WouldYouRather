@@ -4,7 +4,13 @@ import {
   _saveLikeToggle,
   _saveTweet,
 } from './_DATA.js'
-
+export function getLoginData(){
+  return Promise.all([
+    _getUsers(),
+  ]).then(([users]) => ({
+    users,
+  }))
+}
 export function getInitialData () {
   return Promise.all([
     _getUsers(),
