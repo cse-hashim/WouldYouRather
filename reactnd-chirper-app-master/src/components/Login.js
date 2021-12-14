@@ -3,8 +3,10 @@ import { connect } from 'react-redux'
 import { LoadingBar, showLoading } from 'react-redux-loading'
 import { setAuthedUser } from '../actions/authedUser'
 import { handleInitialData, handleLoginData } from '../actions/shared'
+import { addUser } from '../actions/users'
 import authedUser from '../reducers/authedUser'
 import users from '../reducers/users'
+import CreateContact from './CreateContact'
 import Loggedin from './Loggedin'
 class User extends Component {
     handleLogin = (e) => {
@@ -17,7 +19,7 @@ class User extends Component {
     render() {
         const { id, name, avatar, message, _action } = this.props
         return (
-            <div className='tweet'>
+            <div className='tweet notweet'>
                 <img
                     src={avatar}
                     alt={`Avatar of ${name}`}
@@ -43,22 +45,27 @@ const LoginCard = (props) => {
     const { users, dispatch } = props
     const keys = Object.keys(users);
     return (
-        <Fragment>
-            <h3 className='center'>Login</h3>
-            <ul className='dashboard-list'>
-                {keys.map((id) => (
-                    <li key={id}>
-                        <User
-                            id={id}
-                            name={users[id].name}
-                            avatar={users[id].avatarURL}
-                            dispatch={dispatch}
-                            message='Login'
-                        />
-                    </li>
-                ))}
-            </ul>
-        </Fragment>
+        <div className='split'>
+            <div className='split-item'>
+                <Register dispatch={dispatch}/>
+            </div>
+            <div className='split-item vl'>
+                <h3 className='center'>Login</h3>
+                <ul className='dashboard-list'>
+                    {keys.map((id) => (
+                        <li key={id}>
+                            <User
+                                id={id}
+                                name={users[id].name}
+                                avatar={users[id].avatarURL}
+                                dispatch={dispatch}
+                                message='Login'
+                            />
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
     )
 }
 const LogoutCard = (props) => {
@@ -78,6 +85,48 @@ const LogoutCard = (props) => {
         </Fragment>
     )
 }
+class RegisterCard extends Component{
+    handleChange(event) {
+        this.setState({value: event.target.value});
+      }
+    
+    constructor(props) {
+        super(props);
+        // this.state = {value: ''};
+    
+         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+      }
+    
+    render(){
+    return (
+                  <form onSubmit={this.handleSubmit}>
+          <input type="text"  value={this.state.name} placeholder='Name'/>
+          <input type="text"  value={this.state.handle} placeholder='Handle'/>
+            <input type="submit" value="Submit" />
+      </form>
+    )
+}
+}
+class Register extends Component {
+
+    handleRegister = (user) => {
+        // e.preventDefault()
+        const { dispatch } = this.props
+        dispatch(showLoading)
+        dispatch(addUser(user))
+    }
+
+    render() {
+        return (
+            <Fragment>
+            {/* <RegisterCard /> */}
+            <CreateContact onCreateContact={this.handleRegister}/>
+            </Fragment>
+            
+        )
+    }
+}
 class Login extends Component {
     componentDidMount() {
         this.props.dispatch(handleLoginData())
@@ -96,12 +145,12 @@ class Login extends Component {
             if (authedUser) {
                 return (
                     <Fragment>
-                    {/* <LogoutCard
+                        {/* <LogoutCard
                         authedUser={authedUser}
                         handle={e => this.handleLogout(e)}
                         dispatch={dispatch}
                     /> */}
-                    <Loggedin />
+                        <Loggedin />
                     </Fragment>
 
                 )

@@ -3343,6 +3343,11 @@
     "combined-stream" "^1.0.6"
     "mime-types" "^2.1.12"
 
+"form-serialize@^0.7.2":
+  "integrity" "sha1-sKL/DCICb7bT0VydM/beakMuRzI="
+  "resolved" "https://registry.npmjs.org/form-serialize/-/form-serialize-0.7.2.tgz"
+  "version" "0.7.2"
+
 "forwarded@0.2.0":
   "integrity" "sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow=="
   "resolved" "https://registry.npmjs.org/forwarded/-/forwarded-0.2.0.tgz"
@@ -6450,7 +6455,7 @@
   dependencies:
     "asap" "~2.0.3"
 
-"prop-types@*", "prop-types@^15.5.10", "prop-types@^15.5.6", "prop-types@^15.6.1", "prop-types@^15.6.2":
+"prop-types@*", "prop-types@^15.5.10", "prop-types@^15.5.6", "prop-types@^15.6.1", "prop-types@^15.6.2", "prop-types@^15.7.2":
   "integrity" "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
   "version" "15.7.2"
