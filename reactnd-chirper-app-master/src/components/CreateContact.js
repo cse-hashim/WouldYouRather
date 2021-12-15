@@ -12,15 +12,27 @@ class CreateContact extends Component {
 
     if (this.props.onCreateContact&&values.id&&values.name) {
 
+      // this.props.onCreateContact(
+      //   {
+      //     [values.id]: {
+      //       ...values,
+      //       get avatarURL() {
+      //         return values.avatarURL ? values.avatarURL : `https://ui-avatars.com/api/?rounded=true&name=${values.name.split(" ").join("+")}&color=random&background=random`
+      //       },
+      //       tweets: []
+      //     }
+      //   }
+      // )
       this.props.onCreateContact(
         {
-          [values.id]: {
-            ...values,
+          
+            id:values.id,
+            name:values.name,
             get avatarURL() {
               return values.avatarURL ? values.avatarURL : `https://ui-avatars.com/api/?rounded=true&name=${values.name.split(" ").join("+")}&color=random&background=random`
             },
             tweets: []
-          }
+          
         }
       )
     }

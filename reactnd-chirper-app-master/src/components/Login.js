@@ -8,6 +8,8 @@ import authedUser from '../reducers/authedUser'
 import users from '../reducers/users'
 import CreateContact from './CreateContact'
 import Loggedin from './Loggedin'
+import Logo from './Logo'
+import { handleAddUser } from '../actions/users'
 class User extends Component {
     handleLogin = (e) => {
         e.preventDefault()
@@ -45,6 +47,8 @@ const LoginCard = (props) => {
     const { users, dispatch } = props
     const keys = Object.keys(users);
     return (
+        <Fragment>
+            <Logo className='center' size='40px'/>
         <div className='split'>
             <div className='split-item'>
                 <Register dispatch={dispatch}/>
@@ -66,6 +70,7 @@ const LoginCard = (props) => {
                 </ul>
             </div>
         </div>
+        </Fragment>
     )
 }
 const LogoutCard = (props) => {
@@ -114,7 +119,9 @@ class Register extends Component {
         // e.preventDefault()
         const { dispatch } = this.props
         dispatch(showLoading)
-        dispatch(addUser(user))
+        // dispatch(addUser(user))
+        dispatch(handleAddUser(user))
+
     }
 
     render() {

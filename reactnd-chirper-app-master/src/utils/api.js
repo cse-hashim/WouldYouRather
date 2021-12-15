@@ -3,6 +3,7 @@ import {
   _getTweets,
   _saveLikeToggle,
   _saveTweet,
+  _saveUser,
 } from './_DATA.js'
 export function getLoginData(){
   return Promise.all([
@@ -27,4 +28,7 @@ export function saveLikeToggle (info) {
 
 export function saveTweet (info) {
   return _saveTweet(info)
+}
+export function saveUser (info) {
+  return _saveUser(info)
 }

@@ -210,7 +210,31 @@ export function _getUsers () {
     setTimeout(() => res({...users}), 1000)
   })
 }
+export function _saveUser (user) {
+  return new Promise((res, rej) => {
+console.log('the added user ',{
+  ...users,
+        [user.id]: {
+          ...user,
+          tweets: []
+        }
+} )
+    setTimeout(() => {
+      
+      users = {
+        ...users,
+        [user.id]: {
+          id:user.id,
+          name: user.name,
+          avatarURL: user.avatarURL,
+          tweets: []
+        }
+      }
 
+      res(user)
+    }, 1000)
+  })
+}
 export function _getTweets () {
   return new Promise((res, rej) => {
     setTimeout(() => res({...tweets}), 1000)
@@ -264,12 +288,12 @@ export function _saveTweet ({ text, author, replyingTo }) {
         ...tweets,
         [formattedTweet.id]: formattedTweet,
       }
-
+      console.log('&&&&&&&&',users)
       users = {
         ...users,
         [author]: {
           ...users[author],
-          tweets: users[author].tweets.concat([formattedTweet.id])
+          tweets: users[author].tweets?users[author].tweets.concat([formattedTweet.id]):[].push(formattedTweet.id)
         }
       }
 

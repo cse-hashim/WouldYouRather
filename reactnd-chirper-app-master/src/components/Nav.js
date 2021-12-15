@@ -9,6 +9,7 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { showLoading } from 'react-redux-loading'
 import { setAuthedUser } from '../actions/authedUser'
+import Logo from './Logo'
 
 class Nav extends Component {
   handleLogout = (e) => {
@@ -31,6 +32,10 @@ class Nav extends Component {
     return (
       <nav className='nav'>
         <ul>
+          <li>
+          <Logo />
+
+            </li>
           <li>
             <NavLink to='/' exact activeClassName='active'>
               Home

@@ -8,6 +8,7 @@ import NewTweet from './NewTweet'
 import TweetPage from './TweetPage'
 import Nav from './Nav'
 import Login from './Login'
+import Logo from './Logo'
 
 class App extends Component {
   componentDidMount() {
@@ -16,7 +17,9 @@ class App extends Component {
   }
   render() {
     return (
+      <Fragment>
       <Login />
+      </Fragment>
       
     )
   }
