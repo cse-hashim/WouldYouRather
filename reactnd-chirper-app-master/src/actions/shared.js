@@ -1,47 +1,26 @@
 import { getInitialData, getLoginData } from '../utils/api'
 import { receiveUsers } from '../actions/users'
-import { receiveTweets } from '../actions/tweets'
-import {receiveQuestions} from '../actions/questions'
-import { setAuthedUser } from '../actions/authedUser'
+import { receiveQuestions } from '../actions/questions'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
-const AUTHED_ID = 'tylermcginnis'
-
-export function handleInitialData () {
+export function handleInitialData() {
   return (dispatch) => {
     dispatch(showLoading())
     return getInitialData()
-    .then(({ users,tweets,questions }) => {
-      dispatch(receiveUsers(users))
-      dispatch(receiveTweets(tweets))
-      dispatch(receiveQuestions(questions))
-
-      // dispatch(setAuthedUser(AUTHED_ID))
-
-      dispatch(hideLoading())
-    })
-      // .then(({ users, tweets }) => {
-      //   dispatch(receiveUsers(users))
-      //   dispatch(receiveTweets(tweets))
-      //   dispatch(setAuthedUser(AUTHED_ID))
-      //   dispatch(hideLoading())
-      // })
+      .then(({ users, questions }) => {
+        dispatch(receiveUsers(users))
+        dispatch(receiveQuestions(questions))
+        dispatch(hideLoading())
+      })
   }
 }
-export function handleLoginData () {
+export function handleLoginData() {
   return (dispatch) => {
     dispatch(showLoading())
     return getLoginData()
-    .then(({ users }) => {
-      dispatch(receiveUsers(users))
-      // dispatch(setAuthedUser(AUTHED_ID))
-      dispatch(hideLoading())
-    })
-      // .then(({ users, tweets }) => {
-      //   dispatch(receiveUsers(users))
-      //   dispatch(receiveTweets(tweets))
-      //   dispatch(setAuthedUser(AUTHED_ID))
-      //   dispatch(hideLoading())
-      // })
+      .then(({ users }) => {
+        dispatch(receiveUsers(users))
+        dispatch(hideLoading())
+      })
   }
 }

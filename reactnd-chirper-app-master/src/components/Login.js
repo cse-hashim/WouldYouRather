@@ -1,11 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { LoadingBar, showLoading } from 'react-redux-loading'
+import {  showLoading } from 'react-redux-loading'
 import { setAuthedUser } from '../actions/authedUser'
-import { handleInitialData, handleLoginData } from '../actions/shared'
-import { addUser } from '../actions/users'
-import authedUser from '../reducers/authedUser'
-import users from '../reducers/users'
+import {  handleLoginData } from '../actions/shared'
 import CreateContact from './CreateContact'
 import Loggedin from './Loggedin'
 import Logo from './Logo'
@@ -48,78 +45,36 @@ const LoginCard = (props) => {
     const keys = Object.keys(users);
     return (
         <Fragment>
-            <Logo className='center' size='40px'/>
-        <div className='split'>
-            <div className='split-item'>
-                <Register dispatch={dispatch}/>
+            <Logo className='center' size='40px' />
+            <div className='split'>
+                <div className='split-item'>
+                    <Register dispatch={dispatch} />
+                </div>
+                <div className='split-item vl'>
+                    <h3 className='center'>Login</h3>
+                    <ul className='dashboard-list'>
+                        {keys.map((id) => (
+                            <li key={id}>
+                                <User
+                                    id={id}
+                                    name={users[id].name}
+                                    avatar={users[id].avatarURL}
+                                    dispatch={dispatch}
+                                    message='Login'
+                                />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
-            <div className='split-item vl'>
-                <h3 className='center'>Login</h3>
-                <ul className='dashboard-list'>
-                    {keys.map((id) => (
-                        <li key={id}>
-                            <User
-                                id={id}
-                                name={users[id].name}
-                                avatar={users[id].avatarURL}
-                                dispatch={dispatch}
-                                message='Login'
-                            />
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </div>
         </Fragment>
     )
-}
-const LogoutCard = (props) => {
-    const { dispatch, handle, authedUser } = props
-    return (
-        <Fragment>
-            <h3 className='center'>Logout</h3>
-            <h4 className='center'>you are logged in as: </h4>
-            <User
-                id={authedUser.id}
-                name={authedUser.name}
-                avatar={authedUser.avatarURL}
-                dispatch={dispatch}
-                message='Logout'
-                _action={handle}
-            />
-        </Fragment>
-    )
-}
-class RegisterCard extends Component{
-    handleChange(event) {
-        this.setState({value: event.target.value});
-      }
-    
-    constructor(props) {
-        super(props);
-        // this.state = {value: ''};
-    
-         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-      }
-    
-    render(){
-    return (
-                  <form onSubmit={this.handleSubmit}>
-          <input type="text"  value={this.state.name} placeholder='Name'/>
-          <input type="text"  value={this.state.handle} placeholder='Handle'/>
-            <input type="submit" value="Submit" />
-      </form>
-    )
-}
 }
 class Register extends Component {
 
     handleRegister = (user) => {
-        // e.preventDefault()
         const { dispatch } = this.props
         dispatch(showLoading)
-        // dispatch(addUser(user))
         dispatch(handleAddUser(user))
 
     }
@@ -127,10 +82,9 @@ class Register extends Component {
     render() {
         return (
             <Fragment>
-            {/* <RegisterCard /> */}
-            <CreateContact onCreateContact={this.handleRegister}/>
+                <CreateContact onCreateContact={this.handleRegister} />
             </Fragment>
-            
+
         )
     }
 }
@@ -147,27 +101,19 @@ class Login extends Component {
     }
     render() {
         const { authedUser, users, dispatch } = this.props
-        console.log('%%%%%%%', this.props)
-        if (users !== {}) {
-            if (authedUser) {
-                return (
-                    <Fragment>
-                        {/* <LogoutCard
-                        authedUser={authedUser}
-                        handle={e => this.handleLogout(e)}
-                        dispatch={dispatch}
-                    /> */}
-                        <Loggedin />
-                    </Fragment>
+        if (authedUser) {
+            return (
+                <Fragment>
+                    <Loggedin />
+                </Fragment>
 
-                )
-            } else {
-                return <LoginCard users={users} dispatch={dispatch} />
-            }
+            )
+        } else {
+            return <LoginCard users={users} dispatch={dispatch} />
         }
-        return <p>Loading...</p>
     }
 }
+
 
 function mapStateToProps({ users, dispatch, authedUser }) {
     return {
