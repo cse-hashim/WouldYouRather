@@ -32,18 +32,18 @@ class Question extends Component {
     const { timestamp, optionOne, id } = question
 
     return (
-      // <Link to={`/question/${id}`} className='tweet'>
+      // <Link to={`/question/${id}`} className='question-card'>
       <Link to={{
         pathname: `/question/${id}`,
         authedUser: authedUser,
         question: question
-      }} className='tweet' >
+      }} className='question-card' >
         <img
           src={author.avatarURL}
           alt={`Avatar of ${author.name}`}
           className='avatar'
         />
-        <div className='tweet-info'>
+        <div className='question-card-info'>
           <div>
             <span>{author.name} asks:</span>
             <div>{formatDate(timestamp)}</div>

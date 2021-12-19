@@ -43,7 +43,7 @@ class NewQuestion extends Component {
         <h3 className='center'>Create new Question</h3>
         <p>Complete the Question:</p>
         <h4>Would You Rather ...</h4>
-        <form className='new-tweet' style={{ height: '30px' }} onSubmit={this.handleSubmit}>
+        <form className='new-question-card' style={{ height: '30px' }} onSubmit={this.handleSubmit}>
 
           <input
             type='text'

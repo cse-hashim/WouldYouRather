@@ -15,7 +15,6 @@ class CreateContact extends Component {
           get avatarURL() {
             return values.avatarURL ? values.avatarURL : `https://ui-avatars.com/api/?rounded=true&name=${values.name.split(" ").join("+")}&color=random&background=random`
           },
-          tweets: []
         }
       )
     }

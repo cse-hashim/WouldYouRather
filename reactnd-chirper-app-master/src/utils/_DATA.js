@@ -179,7 +179,6 @@ export function _saveUser(user) {
       ...users,
       [user.id]: {
         ...user,
-        tweets: [],
         questions: {},
       }
     })
@@ -191,7 +190,6 @@ export function _saveUser(user) {
           id: user.id,
           name: user.name,
           avatarURL: user.avatarURL,
-          tweets: [],
           answers: {},
         }
       }

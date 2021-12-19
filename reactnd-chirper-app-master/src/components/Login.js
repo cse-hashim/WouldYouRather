@@ -18,13 +18,13 @@ class User extends Component {
     render() {
         const { id, name, avatar, message, _action } = this.props
         return (
-            <div className='tweet notweet'>
+            <div className='question-card noquestion-card'>
                 <img
                     src={avatar}
                     alt={`Avatar of ${name}`}
                     className='avatar'
                 />
-                <div className='tweet-info'>
+                <div className='question-card-info'>
                     <div>
                         <span>{name}</span>
                         <div>@{id}</div>

@@ -35,15 +35,15 @@ class QuestionPage extends Component {
       <Fragment>
         {authedUser.answers[id] ? (
           <Fragment>
-            <div className='tweet'>
+            <div className='question-card'>
               <img
                 src={author.avatarURL}
                 alt={`Avatar of ${author.name}`}
                 className='avatar'
               />
-              <div className='tweet'>
+              <div className='question-card'>
                 <div style={{ 'min-width': '100%' }}>
-                  <div className='tweet-info'>
+                  <div className='question-card-info'>
                     <span>Asked By {author.name}:</span>
                     <div>{formatDate(timestamp)}</div>
                   </div>
@@ -78,14 +78,14 @@ class QuestionPage extends Component {
           </Fragment>
         ) : (
           <Fragment>
-            <div className='tweet'>
+            <div className='question-card'>
               <img
                 src={author.avatarURL}
                 alt={`Avatar of ${author.name}`}
                 className='avatar'
               />
               <div >
-                <div className='tweet-info'>
+                <div className='question-card-info'>
                   <span>{author.name} asks:</span>
                   <div>{formatDate(timestamp)}</div>
                 </div>

@@ -33,7 +33,7 @@ class Polls extends Component {//dashboard of polls
       <div>
         <h3 className='center'>Leader Board</h3>
         <ul className='dashboard-list'>
-          <li className='tweet boardrow'>
+          <li className='question-card boardrow'>
             <div className='grid-item boardcol'>
               Avatar
             </div>
@@ -48,7 +48,7 @@ class Polls extends Component {//dashboard of polls
             </div>
           </li>
           {this.props.UsersIds.map((id) => (
-            <li key={id} className='tweet boardrow'>
+            <li key={id} className='question-card boardrow'>
               <BoardItem id={id} users={this.props.users} />
             </li>
           ))}

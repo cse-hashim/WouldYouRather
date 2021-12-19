@@ -1,19 +1,27 @@
-# Chirper Project
+# Would you Rather ... Project
 
-This repo is a code-along with the first project in the [React Nanodegree program](https://www.udacity.com/course/react-nanodegree--nd019).
-
-Most of the commits in this repository correspond to videos in the program.
+this is a simple voting app for cllecting poll questions in a compitition it is like a game
 
 ## Project Setup
 
-* clone the Project - `git@github.com:udacity/reactnd-chirper-app.git`
-* install the dependencies - `npm install`
+- run `npm install`
 
-## Contributing
+## Launch
 
-Because this is a code-along project and the commits correspond to specific videos in the program, we will not be accepting pull requests.
+- run `npm start`
 
-If you feel like there's a major problem, please open an issue to discuss the problem and potential resolution.
+## FEATURES
+
+- user login without authentication
+- user register
+- create new poll in '/add'
+- un-answered Polls are shown by default in '/'
+- history is saved by router
+- dashboard is shown at '/dashboard'
+- answered polls can be shown in '/' by a radio button
+- poll page are shows vote form for new polls and summary for answered polls
+- the authedUser vote are marked with red statement to indicate the vote of the current user
+
 
 ## License
 
