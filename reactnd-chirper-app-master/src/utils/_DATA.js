@@ -1,10 +1,31 @@
+/**
+ * ### Users
+
+Users include:
+
+| Attribute    | Type             | Description           |
+|-----------------|------------------|-------------------         |
+| id                 | String           | The user’s unique identifier |
+| name          | String           | The user’s first name  and last name     |
+| avatarURL  | String           | The path to the image file |
+| questions | Array | A list of ids of the polling questions this user created|
+| answers      | Object         |  The object's keys are the ids of each question this user answered. The value of each key is the answer the user selected. It can be either `'optionOne'` or `'optionTwo'` since each question has two options.
+
+ */
 let users = {
-  sarah_edo: {
-    id: "sarah_edo",
+  sarahedo: {
+    id: "sarahedo",
     name: "Sarah Drasner",
     // avatarURL: "https://tylermcginnis.com/would-you-rather/sarah.jpg",
     get avatarURL(){return (`https://ui-avatars.com/api/?rounded=true&name=${this.name.split(" ").join("+")}&color=random&background=random`);},
     tweets: ['8xf0y6ziyjabvozdd253nd', 'hbsc73kzqi75rg7v1e0i6a', '2mb6re13q842wu8n106bhk', '6h5ims9iks66d4m7kqizmv', '3sklxkf9yyfowrf0o1ftbb'],
+    answers: {
+      "8xf0y6ziyjabvozdd253nd": 'optionOne',
+      "6ni6ok3ym7mf1p33lnez": 'optionTwo',
+      "am8ehyc8byjqgar0jgpub9": 'optionTwo',
+      "loxhs1bqm25b708cmbf3g": 'optionTwo'
+    },
+    questions: ['8xf0y6ziyjabvozdd253nd', 'am8ehyc8byjqgar0jgpub9'],
   },
   tylermcginnis: {
     id: "tylermcginnis",
@@ -12,6 +33,11 @@ let users = {
     // avatarURL: "https://tylermcginnis.com/would-you-rather/tyler.jpg",
     get avatarURL(){return (`https://ui-avatars.com/api/?rounded=true&name=${this.name.split(" ").join("+")}&color=random&background=random`);},
     tweets: ['5c9qojr2d1738zlx09afby', 'f4xzgapq7mu783k9t02ghx', 'nnvkjqoevs8t02lzcc0ky', '4pt0px8l0l9g6y69ylivti', 'fap8sdxppna8oabnxljzcv', 'leqp4lzfox7cqvsgdj0e7', '26p5pskqi88i58qmza2gid', 'xi3ca2jcfvpa0i3t4m7ag'],
+    answers: {
+      "vthrdm985a262al8qx3do": 'optionOne',
+      "xj352vofupe1dqz9emx13r": 'optionTwo',
+    },
+    questions: ['loxhs1bqm25b708cmbf3g', 'vthrdm985a262al8qx3do'],
   },
   dan_abramov: {
     id: "dan_abramov",
@@ -19,14 +45,129 @@ let users = {
     // avatarURL: "https://tylermcginnis.com/would-you-rather/dan.jpg",
     get avatarURL(){return (`https://ui-avatars.com/api/?rounded=true&name=${this.name.split(" ").join("+")}&color=random&background=random`);},
     tweets: ['5w6k1n34dkp1x29cuzn2zn', 'czpa59mg577x1oo45cup0d', 'omdbjl68fxact38hk7ypy6', '3km0v4hf1ps92ajf4z2ytg', 'njv20mq7jsxa6bgsqc97', 'sfljgka8pfddbcer8nuxv', 'r0xu2v1qrxa6ygtvf2rkjw'],
+    answers:{},
+    questions:[],
+  },
+  johndoe: {
+    id: 'johndoe',
+    name: 'John Doe',
+    get avatarURL(){return (`https://ui-avatars.com/api/?rounded=true&name=${this.name.split(" ").join("+")}&color=random&background=random`);},
+    tweets:[],
+    answers: {
+      "xj352vofupe1dqz9emx13r": 'optionOne',
+      "vthrdm985a262al8qx3do": 'optionTwo',
+      "6ni6ok3ym7mf1p33lnez": 'optionTwo'
+    },
+    questions: ['6ni6ok3ym7mf1p33lnez', 'xj352vofupe1dqz9emx13r'],
   }
+}
+/**
+ * @description
+ * Questions include:
+
+| Attribute | Type | Description |
+|-----------------|------------------|-------------------|
+| id                  | String | The question’s unique identifier |
+| author        | String | The author’s unique identifier |
+| timestamp | String | The time when the question was created|
+| optionOne | Object | The first voting option|
+| optionTwo | Object | The second voting option|
+
+### Voting Options
+
+Voting options are attached to questions. They include:
+
+| Attribute | Type | Description |
+|-----------------|------------------|-------------------|
+| votes             | Array | A list that contains the id of each user who voted for that option|
+| text                | String | The text of the option |
+ */
+let questions = {
+  "8xf0y6ziyjabvozdd253nd": {
+    id: '8xf0y6ziyjabvozdd253nd',
+    author: 'sarahedo',
+    timestamp: 1467166872634,
+    optionOne: {
+      votes: ['sarahedo'],
+      text: 'have horrible short term memory',
+    },
+    optionTwo: {
+      votes: [],
+      text: 'have horrible long term memory'
+    }
+  },
+  "6ni6ok3ym7mf1p33lnez": {
+    id: '6ni6ok3ym7mf1p33lnez',
+    author: 'johndoe',
+    timestamp: 1468479767190,
+    optionOne: {
+      votes: [],
+      text: 'become a superhero',
+    },
+    optionTwo: {
+      votes: ['johndoe', 'sarahedo'],
+      text: 'become a supervillain'
+    }
+  },
+  "am8ehyc8byjqgar0jgpub9": {
+    id: 'am8ehyc8byjqgar0jgpub9',
+    author: 'sarahedo',
+    timestamp: 1488579767190,
+    optionOne: {
+      votes: [],
+      text: 'be telekinetic',
+    },
+    optionTwo: {
+      votes: ['sarahedo'],
+      text: 'be telepathic'
+    }
+  },
+  "loxhs1bqm25b708cmbf3g": {
+    id: 'loxhs1bqm25b708cmbf3g',
+    author: 'tylermcginnis',
+    timestamp: 1482579767190,
+    optionOne: {
+      votes: [],
+      text: 'be a front-end developer',
+    },
+    optionTwo: {
+      votes: ['sarahedo'],
+      text: 'be a back-end developer'
+    }
+  },
+  "vthrdm985a262al8qx3do": {
+    id: 'vthrdm985a262al8qx3do',
+    author: 'tylermcginnis',
+    timestamp: 1489579767190,
+    optionOne: {
+      votes: ['tylermcginnis'],
+      text: 'find $50 yourself',
+    },
+    optionTwo: {
+      votes: ['johndoe'],
+      text: 'have your best friend find $500'
+    }
+  },
+  "xj352vofupe1dqz9emx13r": {
+    id: 'xj352vofupe1dqz9emx13r',
+    author: 'johndoe',
+    timestamp: 1493579767190,
+    optionOne: {
+      votes: ['johndoe'],
+      text: 'write JavaScript',
+    },
+    optionTwo: {
+      votes: ['tylermcginnis'],
+      text: 'write Swift'
+    }
+  },
 }
 
 let tweets = {
   "8xf0y6ziyjabvozdd253nd": {
     id: "8xf0y6ziyjabvozdd253nd",
     text: "Shoutout to all the speakers I know for whom English is not a first language, but can STILL explain a concept well. It's hard enough to give a good talk in your mother tongue!",
-    author: "sarah_edo",
+    author: "sarahedo",
     timestamp: 1518122597860,
     likes: ['tylermcginnis'],
     replies: ['fap8sdxppna8oabnxljzcv', '3km0v4hf1ps92ajf4z2ytg'],
@@ -37,7 +178,7 @@ let tweets = {
     text: "I hope one day the propTypes pendulum swings back. Such a simple yet effective API. Was one of my favorite parts of React.",
     author: "tylermcginnis",
     timestamp: 1518043995650,
-    likes: ['sarah_edo', 'dan_abramov'],
+    likes: ['sarahedo', 'dan_abramov'],
     replies: ['njv20mq7jsxa6bgsqc97'],
     replyingTo: null,
   },
@@ -53,7 +194,7 @@ let tweets = {
   "hbsc73kzqi75rg7v1e0i6a": {
     id: "hbsc73kzqi75rg7v1e0i6a",
     text: "Puppies 101: buy a hamper with a lid on it.",
-    author: "sarah_edo",
+    author: "sarahedo",
     timestamp: 1516043995650,
     likes: ['tylermcginnis'],
     replies: ['leqp4lzfox7cqvsgdj0e7', 'sfljgka8pfddbcer8nuxv'],
@@ -64,7 +205,7 @@ let tweets = {
     text: "Is there a metric like code coverage, but that shows lines that, if changed (in a syntactically correct way), wouldn’t cause tests to fail?",
     author: "dan_abramov",
     timestamp: 1515043995650,
-    likes: ['sarah_edo'],
+    likes: ['sarahedo'],
     replies: [],
     replyingTo: null,
   },
@@ -73,14 +214,14 @@ let tweets = {
     text: "React came out 'rethinking best practices'. It has since accumulated 'best practices' of its own. Let’s see if we can do better.",
     author: "dan_abramov",
     timestamp: 1515043995650,
-    likes: ['tylermcginnis', 'sarah_edo'],
+    likes: ['tylermcginnis', 'sarahedo'],
     replies: ['3sklxkf9yyfowrf0o1ftbb'],
     replyingTo: null,
   },
   "2mb6re13q842wu8n106bhk": {
     id: "2mb6re13q842wu8n106bhk",
     text: "I think I realized I like dogs so much because I can really relate to being motivated by snacks",
-    author: "sarah_edo",
+    author: "sarahedo",
     timestamp: 1514043995650,
     likes: ['dan_abramov'],
     replies: ['26p5pskqi88i58qmza2gid'],
@@ -116,7 +257,7 @@ let tweets = {
   "6h5ims9iks66d4m7kqizmv": {
     id: "6h5ims9iks66d4m7kqizmv",
     text: "By the way, if you have a blog post sitting around and want to get some eyes on it, we take guest submissions! That's how I started.",
-    author: "sarah_edo",
+    author: "sarahedo",
     timestamp: 1510043995650,
     likes: ['dan_abramov', 'tylermcginnis'],
     replies: ['xi3ca2jcfvpa0i3t4m7ag', 'r0xu2v1qrxa6ygtvf2rkjw'],
@@ -127,7 +268,7 @@ let tweets = {
     author: "tylermcginnis",
     text: "I agree. I'm always really impressed when I see someone giving a talk in a language that's not their own.",
     timestamp: 1518122677860,
-    likes: ['sarah_edo'],
+    likes: ['sarahedo'],
     replyingTo: "8xf0y6ziyjabvozdd253nd",
     replies: [],
   },
@@ -163,13 +304,13 @@ let tweets = {
     author: "dan_abramov",
     text: "Puppies are the best.",
     timestamp: 1516045995650,
-    likes: ['sarah_edo', 'tylermcginnis'],
+    likes: ['sarahedo', 'tylermcginnis'],
     replyingTo: "hbsc73kzqi75rg7v1e0i6a",
     replies: [],
   },
   "3sklxkf9yyfowrf0o1ftbb": {
     id: "3sklxkf9yyfowrf0o1ftbb",
-    author: "sarah_edo",
+    author: "sarahedo",
     text: "The idea of best practices being a negative thing is an interesting concept.",
     timestamp: 1515044095650,
     likes: ['dan_abramov'],
@@ -181,7 +322,7 @@ let tweets = {
     author: "tylermcginnis",
     text: "Too relatable",
     timestamp: 1514044994650,
-    likes: ['sarah_edo'],
+    likes: ['sarahedo'],
     replyingTo: "2mb6re13q842wu8n106bhk",
     replies: [],
   },
@@ -204,7 +345,15 @@ let tweets = {
     replies: [],
   },
 }
+/**
+ * 
+ *  1) `_getUsers()` Method
 
+*Description*: Get all of the existing users from the database.  
+*Return Value*: Object where the key is the user’s id and the value is the user object.
+
+
+ */
 export function _getUsers () {
   return new Promise((res, rej) => {
     setTimeout(() => res({...users}), 1000)
@@ -216,7 +365,8 @@ console.log('the added user ',{
   ...users,
         [user.id]: {
           ...user,
-          tweets: []
+          tweets: [],
+          questions:{},
         }
 } )
     setTimeout(() => {
@@ -227,7 +377,35 @@ console.log('the added user ',{
           id:user.id,
           name: user.name,
           avatarURL: user.avatarURL,
-          tweets: []
+          tweets: [],
+          answers:{},
+        }
+      }
+
+      res(user)
+    }, 1000)
+  })
+}
+export function _saveEditedUser (user,edit) {
+  return new Promise((res, rej) => {
+console.log('the added user ',{
+  ...users,
+        [user.id]: {
+          ...user,
+          tweets: [],
+          questions:{},
+        }
+} )
+    setTimeout(() => {
+      
+      users = {
+        ...users,
+        [user.id]: {
+          id:user.id,
+          name: user.name,
+          avatarURL: user.avatarURL,
+          tweets: [],
+          answers:{},
         }
       }
 
@@ -258,8 +436,11 @@ export function _saveLikeToggle ({ id, hasLiked, authedUser }) {
     }, 500)
   })
 }
-
-function generateUID () {
+/**
+ * 
+ * @returns {String}
+ */
+export function generateUID () {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
 
@@ -299,5 +480,131 @@ export function _saveTweet ({ text, author, replyingTo }) {
 
       res(formattedTweet)
     }, 1000)
+  })
+}
+/**
+ * 2) `_getQuestions()` Method
+
+*Description*: Get all of the existing questions from the database.  
+*Return Value*: Object where the key is the question’s id and the value is the question object.
+
+
+ */
+export function _getQuestions () {
+  return new Promise((res, rej) => {
+    setTimeout(() => res({...questions}), 1000)
+  })
+}
+/**
+ * 
+ * @param {{ optionOneText:String, optionTwoText:String, author:String }} param0 
+ * @returns 
+ */
+function formatQuestion ({ optionOneText, optionTwoText, author }) {
+  return {
+    id: generateUID(),
+    timestamp: Date.now(),
+    author,
+    optionOne: {
+      votes: [],
+      text: optionOneText,
+    },
+    optionTwo: {
+      votes: [],
+      text: optionTwoText,
+    }
+  }
+}
+/**
+ * 
+ *3) `_saveQuestion(question)` Method
+
+*Description*: Save the polling question in the database.  
+*Parameters*:  Object that includes the following properties: `author`, `optionOneText`, and `optionTwoText`. More details about these properties:
+
+| Attribute | Type | Description |
+|-----------------|------------------|-------------------|
+| author | String | The id of the user who posted the question|
+| optionOneText| String | The text of the first option |
+| optionTwoText | String | The text of the second option |
+
+*Return Value*:  An object that has the following properties: `id`, `author`, `optionOne`, `optionTwo`, `timestamp`. More details about these properties:
+
+| Attribute | Type | Description |
+|-----------------|------------------|-------------------|
+| id | String | The id of the question that was posted|
+| author | String | The id of the user who posted the question|
+| optionOne | Object | The object has a text property and a votes property, which stores an array of the ids of the users who voted for that option|
+| optionTwo | Object | The object has a text property and a votes property, which stores an array of the ids of the users who voted for that option|
+|timestamp|String | The time when the question was created|
+
+
+ */
+/**
+ * @param {{id:String,author:String,timestamp:String,optionOne:{votes:String[],text:String},optionTwo:{votes:String[],text:String}}} question 
+ */
+export function _saveQuestion (question) {
+  return new Promise((res, rej) => {
+    const authedUser = question.author;
+    const formattedQuestion = formatQuestion(question);
+
+    setTimeout(() => {
+      questions = {
+        ...questions,
+        [formattedQuestion.id]: formattedQuestion
+      }
+      
+      users = {
+        ...users,
+        [authedUser]: {
+          ...users[authedUser],
+          questions: users[authedUser].questions.concat([formattedQuestion.id])
+        }
+      }
+
+      res(formattedQuestion)
+    }, 1000)
+  })
+}
+/**
+ * 
+ 4) `_saveQuestionAnswer(object)` Method
+
+*Description*: Save the answer to a particular polling question in the database.
+*Parameters*: Object that contains the following properties: `authedUser`, `qid`, and `answer`. More details about these properties:
+
+| Attribute | Type | Description |
+|-----------------|------------------|-------------------|
+| authedUser | String | The id of the user who answered the question|
+| qid | String | The id of the question that was answered|
+| answer | String | The option the user selected. The value should be either `"optionOne"` or `"optionTwo"`|
+ */
+export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      users = {
+        ...users,
+        [authedUser]: {
+          ...users[authedUser],
+          answers: {
+            ...users[authedUser].answers,
+            [qid]: answer
+          }
+        }
+      }
+
+      questions = {
+        ...questions,
+        [qid]: {
+          ...questions[qid],
+          [answer]: {
+            ...questions[qid][answer],
+            votes: questions[qid][answer].votes.concat([authedUser])
+          }
+        }
+      }
+
+      res()
+    }, 500)
   })
 }

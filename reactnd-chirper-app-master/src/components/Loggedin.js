@@ -9,6 +9,10 @@ import TweetPage from './TweetPage'
 import Nav from './Nav'
 import Login from './Login'
 import { Link, withRouter } from 'react-router-dom'
+import QuestionPage from './QuestionPage'
+import Polls from './Polls'
+import NewQuestion from './NewQuestion'
+import LeaderBoard from './LeaderBoard'
 
 
 class Loggedin extends Component {
@@ -26,9 +30,15 @@ class Loggedin extends Component {
                 ? null
                 : <div>
                   
-                    <Route path='/' exact component={Dashboard} />
+                    <Route path='/' exact component={Polls} />
+                    {/* <Route path='/' exact component={Dashboard} /> */}
                     <Route path='/tweet/:id' component={TweetPage} />
+                    <Route path='/question/:id' component={QuestionPage} />
+
                     <Route path='/new' component={NewTweet} />
+                    <Route path='/leaderboard' component={LeaderBoard} />
+
+                    <Route path='/add' component={NewQuestion} />
                   </div>}
             </div>
           </Fragment>
@@ -36,9 +46,9 @@ class Loggedin extends Component {
     )
   }
 }
-function mapStateToProps({ authedUser }) {
+function mapStateToProps({ authedUser, }) {
   return {
-    loading: authedUser === null
+    loading: authedUser === null,
   }
 }
 

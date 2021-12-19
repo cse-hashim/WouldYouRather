@@ -36,6 +36,7 @@ export function receiveTweets (tweets) {
 }
 
 function toggleTweet ({ id, authedUser, hasLiked }) {
+  console.log('//reducer//',id,authedUser,hasLiked)
   return {
     type: TOGGLE_TWEET,
     id,

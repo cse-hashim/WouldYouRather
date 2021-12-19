@@ -46,6 +46,17 @@ class Nav extends Component {
               New Tweet
             </NavLink>
           </li>
+          <li>
+            <NavLink to='/add' exact activeClassName='active'>
+              New Poll
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to='/leaderboard' exact activeClassName='active'>
+              Board
+            </NavLink>
+          </li>
+
           {user && (
             <li>
               {/* <NavLink to='#' activeClassName='active'> */}
