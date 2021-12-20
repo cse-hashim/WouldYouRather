@@ -22,7 +22,7 @@ class Question extends Component {
   }
   toParent = (e, id) => {
     e.preventDefault()
-    this.props.history.push(`/question/${id}`)
+    this.props.history.push(`/questions/${id}`)
   }
   render() {
     const { question, authedUser, author } = this.props
@@ -34,7 +34,7 @@ class Question extends Component {
     return (
       // <Link to={`/question/${id}`} className='question-card'>
       <Link to={{
-        pathname: `/question/${id}`,
+        pathname: `/questions/${id}`,
         authedUser: authedUser,
         question: question
       }} className='question-card' >

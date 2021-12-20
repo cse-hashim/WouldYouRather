@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import LoadingBar from 'react-redux-loading'
@@ -8,6 +8,7 @@ import QuestionPage from './QuestionPage'
 import Polls from './Polls'
 import NewQuestion from './NewQuestion'
 import LeaderBoard from './LeaderBoard'
+import NotFound from './NotFound'
 
 
 class Loggedin extends Component {
@@ -23,12 +24,13 @@ class Loggedin extends Component {
             <Nav />
             {this.props.loading === true
               ? null
-              : <div>
+              : <Switch>
                 <Route path='/' exact component={Polls} />
-                <Route path='/question/:id' component={QuestionPage} />
+                <Route path='/questions/:id' component={QuestionPage} />
                 <Route path='/leaderboard' component={LeaderBoard} />
                 <Route path='/add' component={NewQuestion} />
-              </div>}
+                <Route component={NotFound} />
+              </Switch>}
           </div>
         </Fragment>
       </Router>

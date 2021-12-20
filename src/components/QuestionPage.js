@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { formatDate } from '../utils/helpers'
 import { _handleAnswerQuestion } from '../actions/questions'
-import { NotFound } from "./NotFound";
+import  NotFound  from "./NotFound";
 class QuestionPage extends Component {
   state = {
     selectedRadio: null
