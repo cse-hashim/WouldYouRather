@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { formatDate } from '../utils/helpers'
 import { _handleAnswerQuestion } from '../actions/questions'
-
+import { NotFound } from "./NotFound";
 class QuestionPage extends Component {
   state = {
     selectedRadio: null
@@ -30,8 +30,10 @@ class QuestionPage extends Component {
   }
   render() {
     const { authedUser, id, question, author } = this.props
-    const { timestamp, optionOne, optionTwo } = question
+    const { timestamp, optionOne, optionTwo } = question?question:{timestamp:'', optionOne:'', optionTwo:''}
     return (
+      <Fragment>
+        {question ? (
       <Fragment>
         {authedUser.answers[id] ? (
           <Fragment>
@@ -42,7 +44,7 @@ class QuestionPage extends Component {
                 className='avatar'
               />
               <div className='question-card'>
-                <div style={{ 'min-width': '100%' }}>
+                <div style={{ 'minWidth': '100%' }}>
                   <div className='question-card-info'>
                     <span>Asked By {author.name}:</span>
                     <div>{formatDate(timestamp)}</div>
@@ -131,6 +133,10 @@ class QuestionPage extends Component {
           </Fragment>
         )}
       </Fragment>
+        ):(
+          <NotFound></NotFound>
+        )}
+        </Fragment>
     )
   }
 }
@@ -142,7 +148,8 @@ function mapStateToProps({ authedUser, users, questions }, props) {
     id,
     authedUser: users[authedUser],
     question: question,
-    author: users[question.author],
+    author: question?users[question.author]:null,
+    // author: users[question.author],
     users,
   }
 }
