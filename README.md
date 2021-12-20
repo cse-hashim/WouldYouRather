@@ -32,3 +32,7 @@ this is a simple voting app for cllecting poll questions in a compitition it is 
 ## License
 
 MIT
+
+---
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/fcb9a250-2431-4a61-9230-b24aa804cf16/deploy-status)](https://app.netlify.com/sites/wouldyourather20122021/deploys)
